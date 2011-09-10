@@ -16,27 +16,25 @@
 	<string>hook</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
-	<key>PlexAudioCodec</key>
-	<array>
-		<string>MP3</string>
-	</array>
+	<key>PlexFrameworkVersion</key>
+	<string>2</string>
 	<key>PlexClientPlatforms</key>
 	<string>MacOSX,LGTV</string>
 	<key>PlexMediaContainer</key>
 	<array>
 		<string>FLV</string>
 	</array>
-	<key>PlexPluginDebug</key>
-	<string>1</string>
-	<key>PlexPluginMode</key>
-	<string>AlwaysOn</string>
-	<key>PlexPluginPrefixes</key>
-	<array>
-		<string>/video/ign</string>
-	</array>
 	<key>PlexVideoCodec</key>
 	<array>
 		<string>VP6F</string>
 	</array>
+	<key>PlexAudioCodec</key>
+	<array>
+		<string>MP3</string>
+	</array>
+	<key>PlexPluginConsoleLogging</key>
+	<string>1</string>
+	<key>PlexPluginMode</key>
+	<string>AlwaysOn</string>
 </dict>
 </plist>
