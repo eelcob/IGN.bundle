@@ -1,0 +1,13 @@
+def CalculateDuration(duration):
+  
+  durationParts = duration.split(' ')[0].split(':')
+  if len(durationParts) == 3:
+    milliseconds = ((int(durationParts[0])*3600) + (int(durationParts[1])*60) + int(durationParts[2]))*1000
+  elif len(durationParts) == 2:
+    milliseconds = ((int(durationParts[0])*60) + int(durationParts[1]))*1000
+  elif len(durationParts) == 1:
+    milliseconds = (int(durationParts[0]))*1000
+  else:
+    milliseconds = None
+    
+  return milliseconds

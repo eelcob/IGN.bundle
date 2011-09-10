@@ -42,6 +42,7 @@ def VideoMainMenu():
   oc.add(DirectoryObject(key=Callback(Series, title="Series"), title="All Series", summary="Video series on IGN"))
   oc.add(DirectoryObject(key=Callback(Systems, title="Systems"), title="Systems", summary="Browse videos specific to your system of choice."))
   oc.add(DirectoryObject(key=Callback(FeedPage, title="TV", url=TV_URL), title="TV Clips & Videos", summary="TV related videos and clips from IGN."))
+  oc.add(SearchDirectoryObject(identifier="com.plexapp.search.ign", title="Search", summary="Search IGN for videos", prompt="Search for...", thumb=R(ICON), art=R(ART)))
 
   return oc
   

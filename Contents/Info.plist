@@ -36,5 +36,15 @@
 	<string>1</string>
 	<key>PlexPluginMode</key>
 	<string>AlwaysOn</string>
+	<!--
+	<key>PlexSearchServices</key>
+	<dict>
+	    <key>IGN</key>
+	    <dict>
+		<key>Identifier</key>
+		<string>com.plexapp.search.ign</string>
+	    </dict>
+	</dict>
+	-->
 </dict>
 </plist>
