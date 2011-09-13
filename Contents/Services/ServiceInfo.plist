@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>Search</key>
+		<dict>
+			<key>IGN</key>
+			<dict/>                                                   -> Empty dictionary, for future use
+		</dict>
+		<key>URL</key>
+		<dict>
+			<key>IGN</key>
+			<dict>
+				<key>URLPatterns</key>
+				<array>
+					<string>http://.*\.ign\.com/.*</string> <!-- uses ".*" for prefix since there are multiple possible prefixes and they may change -->
+				</array>
+				<key>TestURLs</key>
+				<array>
+					<!-- array of strings containing URLs to test -->
+				</array>
+			</dict>
+		</dict>
+	</dict>
+</plist>
