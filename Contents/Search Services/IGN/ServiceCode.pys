@@ -15,8 +15,6 @@ def Search(query):
         date = Datetime.ParseDate(result.xpath('.//span[@class="publisherLink"]')[0].text).date()
         oc.add(VideoClipObject(url=video_url, title=title, summary=summary, duration=duration, originally_available_at=date, thumb=Callback(Thumb, url=thumbUrl), art=R('art-default.png')))
     
-    if len(oc) == 0: return MessageObject(NAME, L('No results found.'))
-    
     return  oc    
 
 
