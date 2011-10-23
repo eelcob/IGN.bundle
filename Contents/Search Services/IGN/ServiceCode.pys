@@ -11,29 +11,12 @@ def Search(query):
         except:summary = ''
         video_url = result.xpath('.//a[@class="video-title"]')[0].get('href')
         thumbUrl = result.xpath('.//img[@class="videoThumb"]')[0].get('src')
-        duration = CalculateDuration(result.xpath('.//p[@class="videoDuration"]')[0].text.split(' ')[0])
+        try: duration = CalculateDuration(result.xpath('.//p[@class="videoDuration"]')[0].text.split(' ')[0])
+        except: duration = None
         date = Datetime.ParseDate(result.xpath('.//span[@class="publisherLink"]')[0].text).date()
-        oc.add(VideoClipObject(url=video_url, title=title, summary=summary, duration=duration, originally_available_at=date, thumb=Callback(Thumb, url=thumbUrl), art=R('art-default.png')))
+        oc.add(VideoClipObject(url=video_url, title=title, summary=summary, duration=duration, originally_available_at=date, thumb=thumbUrl))
     
     return  oc    
-
-
-def Thumb(url):
-  if url:
-    try:
-        large_url = url.replace('small', 'large')
-        try:
-          data = HTTP.Request(large_url, cacheTime=CACHE_1MONTH).content
-          return DataObject(data, 'image/jpeg')
-        except:
-            return Redirect(R('icon-default.png'))
-    except:
-        try:
-          data = HTTP.Request(url, cacheTime=CACHE_1MONTH).content
-          return DataObject(data, 'image/jpeg')
-        except:
-            return Redirect(R('icon-default.png'))
-  return None
 
 def CalculateDuration(duration):
   
