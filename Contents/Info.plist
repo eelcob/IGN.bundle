@@ -18,8 +18,6 @@
 	<string>1.0</string>
 	<key>PlexFrameworkVersion</key>
 	<string>2</string>
-	<key>PlexClientPlatforms</key>
-	<string>MacOSX,LGTV</string>
 	<key>PlexMediaContainer</key>
 	<array>
 		<string>FLV</string>
