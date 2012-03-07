@@ -1,33 +1,33 @@
 SEARCH_URL = 'http://www.ign.com/search/video?query=%s'
 
+####################################################################################################
 def Search(query):
-    data = HTML.ElementFromURL(SEARCH_URL % query)
-    
-    oc = ObjectContainer(title2='Search Results')
-    
-    for result in data.xpath('//div[@id="searchResults"]/div[@class="video-result clear"]'):
-        title = result.xpath('.//a[@class="video-title"]')[0].text.strip()
-        try:summary = result.xpath('.//span[@class="publisherLink"]/parent::p/text()')[0].strip(' - ')
-        except:summary = ''
-        video_url = result.xpath('.//a[@class="video-title"]')[0].get('href')
-        thumbUrl = result.xpath('.//img[@class="videoThumb"]')[0].get('src')
-        try: duration = CalculateDuration(result.xpath('.//p[@class="videoDuration"]')[0].text.split(' ')[0])
-        except: duration = None
-        date = Datetime.ParseDate(result.xpath('.//span[@class="publisherLink"]')[0].text).date()
-        oc.add(VideoClipObject(url=video_url, title=title, summary=summary, duration=duration, originally_available_at=date, thumb=thumbUrl))
-    
-    return  oc    
 
-def CalculateDuration(duration):
-  
-  durationParts = duration.split(':')
-  if len(durationParts) == 3:
-    milliseconds = ((int(durationParts[0])*3600) + (int(durationParts[1])*60) + int(durationParts[2]))*1000
-  elif len(durationParts) == 2:
-    milliseconds = ((int(durationParts[0])*60) + int(durationParts[1]))*1000
-  elif len(durationParts) == 1:
-    milliseconds = (int(durationParts[0]))*1000
-  else:
-    milliseconds = None
-    
-  return milliseconds
+	data = HTML.ElementFromURL(SEARCH_URL % query)
+	oc = ObjectContainer(title2='Search Results')
+
+	for result in data.xpath('//div[@id="searchResults"]/div[@class="video-result clear"]'):
+		title = result.xpath('.//a[@class="video-title"]')[0].text.strip()
+		try: summary = result.xpath('.//span[@class="publisherLink"]/parent::p/text()')[0].strip(' - ')
+		except: summary = ''
+		video_url = result.xpath('.//a[@class="video-title"]')[0].get('href')
+		thumbUrl = result.xpath('.//img[@class="videoThumb"]')[0].get('src')
+		try: duration = CalculateDuration(result.xpath('.//p[@class="videoDuration"]')[0].text.split(' ')[0])
+		except: duration = None
+		date = Datetime.ParseDate(result.xpath('.//span[@class="publisherLink"]')[0].text).date()
+
+		oc.add(VideoClipObject(url=video_url, title=title, summary=summary, duration=duration, originally_available_at=date, thumb=thumbUrl))
+
+	return oc    
+
+####################################################################################################
+def CalculateDuration(timecode):
+
+	seconds  = 0
+	duration = timecode.split(':')
+	duration.reverse()
+
+	for i in range(0, len(duration)):
+		seconds += int(duration[i]) * (60**i)
+
+	return seconds * 1000
