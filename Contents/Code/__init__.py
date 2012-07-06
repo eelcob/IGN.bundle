@@ -37,7 +37,6 @@ def MainMenu():
     oc.add(DirectoryObject(key=Callback(VideosPage, title=title, url=url), title=title, thumb=R(ICON)))
 
   oc.add(DirectoryObject(key=Callback(Series, title="Series"), title="All Series", summary="Video series on IGN"))
-  oc.add(DirectoryObject(key=Callback(Systems, title="Systems"), title="Systems", summary="Browse videos specific to your system of choice."))
   oc.add(DirectoryObject(key=Callback(FeedPage, title="TV", url=TV_URL), title="TV Clips & Videos", summary="TV related videos and clips from IGN."))
   oc.add(SearchDirectoryObject(identifier="com.plexapp.plugins.ign", title="Search", summary="Search IGN for videos", prompt="Search for...", thumb=R(ICON), art=R(ART)))
 
@@ -56,9 +55,12 @@ def Series(title, pageNum=None, url=None):
 
   data = HTTP.Request(url, cacheTime=0).content
   data = HTML.ElementFromURL(url, cacheTime=0, sleep=1.0)
-
+ 
   for series in data.xpath('//div[@class="grid_16 alpha bottom_2"]'):
-    series_title = series.xpath('.//a[@class="grid_4 alpha"]')[0].get('title')
+    try:
+      series_title = series.xpath('.//a[@class="grid_4 alpha"]')[0].get('title')
+    except:
+      continue   
     series_url = series.xpath('.//a[@class="grid_4 alpha"]')[0].get('href')
     series_thumb = series.xpath('.//img[@class="thumb"]')[0].get('src')
     summary = series.xpath('.//p[@class="video-description"]')[0].text
@@ -72,20 +74,7 @@ def Series(title, pageNum=None, url=None):
     oc.add(DirectoryObject(key=Callback(Series, title=title, pageNum=pageNum+1, url=more_url), title="Next Page", summary="More series from IGN"))
 
   return oc
-
-####################################################################################################
-def Systems(title):
-
-  oc = ObjectContainer(title2=title)
-  data = HTML.ElementFromURL(BASE_URL)
-
-  for system in data.xpath('//li[@class="navItem navChannel"]/a[contains(@class, "nav-lnk ")]'):
-    title = system.text
-    url = system.get('href')
-    oc.add(DirectoryObject(key=Callback(FeedPage, title=title, url=url+'/index/videos.html'), title=title, thumb=R(ICON)))
-
-  return oc
-
+  
 ####################################################################################################
 def VideosPage(title, pageNum=None, url=None):
 
